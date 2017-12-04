@@ -85,13 +85,11 @@
 	function download_file(){
 		
 		$folder = "../asset/files/";
-		
 		if (!file_exists($folder.$_GET['file'])) {
-		  echo "<h1>Access forbidden!</h1>
-			  <p> Anda tidak diperbolehkan mendownload file ini.</p>";
-		  exit;
-		}else {
-		  echo "berhasil";
+			alert_box("Anda tidak diperbolehkan mendownload file ini.");
+			
+		}else{
+		?><meta http-equiv="Refresh" content="0; URL=<?php echo $folder.$_GET['file']; ?>"><?php
 		}
 	}
 	

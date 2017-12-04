@@ -2,8 +2,9 @@
 	$cek = cek_login($user);
 	
 	if(isset($_POST['upload'])){ upload_file(); }
+	if(isset($_GET['file'])){ download_file(); }
 	if(isset($_GET['delete'])){ 
-		delete_data('matkul','kd_matkul', $_GET['id']);
+		delete_data('tb_file','kd_file', $_GET['delete']);
 		}
 ?>
 
@@ -27,7 +28,7 @@
                 <th><center>Nama File</center></th>
                 <th><center>Deskripsi</center></th>
                 <th><center>Upload at</center></th>
-                <th width="35px"><center><div class="fa fa-gear fa-fw"></div></center></th>
+                <th width="80px"><center><div class="fa fa-gear fa-fw"></div></center></th>
               </tr>
             </thead>
             <tbody>
@@ -43,8 +44,11 @@
                 <td><?php echo $data[3]." ".$data[4] ?></td>
                 <td>
                 	<center>
-                        <a href="?page=materi&id=<?php echo $data[0]; ?>">
+                        <a href="?page=materi&id=<?php echo $_GET['id']; ?>&file=<?php echo $data[1]; ?>">
                         	<div class="glyphicon glyphicon-download-alt"></div>
+                        </a>
+                        <a href="?page=materi&id=<?php echo $_GET['id']; ?>&delete=<?php echo $data[0]; ?>" onclick="return confirm('Anda Yakin Akan Menghapus ?')">
+                        	<div class="glyphicon glyphicon-erase"></div>
                         </a>
                     </center>
                 </td>
