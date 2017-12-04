@@ -1,0 +1,87 @@
+<?php
+	$cek = cek_login($user);
+	
+	if(isset($_POST['upload'])){ upload_file(); }
+	if(isset($_GET['delete'])){ 
+		delete_data('matkul','kd_matkul', $_GET['id']);
+		}
+?>
+
+<div class="panel-heading">Materi Kuliah 
+	<?php 
+		get_data('tb_view_kelas','kd_kelas',$_GET['id'],'nm_matkul'); 
+		echo " - ";
+		get_data('tb_view_kelas','kd_kelas',$_GET['id'],'nm_kelas'); 
+	?>
+    <ul class="nav navbar-nav navbar-right"><a href="#" data-toggle="modal" data-target="#myModal"><div class="glyphicon glyphicon-cloud-upload"></div></a></ul>
+</div>
+<br>
+<!-- ---------------------------------------------------------------view--------------------------------- -->
+<div class="panel-body">
+	<div style="width:98%; margin:auto"> 
+    
+          <table id="tabel1" class="table">
+            <thead>
+              <tr>
+                <th width="35px"><center>No</center></th>
+                <th><center>Nama File</center></th>
+                <th><center>Deskripsi</center></th>
+                <th><center>Upload at</center></th>
+                <th width="35px"><center><div class="fa fa-gear fa-fw"></div></center></th>
+              </tr>
+            </thead>
+            <tbody>
+                <?php
+					$no = 1;
+                    $sql = mysqli_query($link, "select * from tb_file where kd_kelas = '$_GET[id]' and id_upload = '$_SESSION[id]'") or die(mysqli_error()); 
+                    while($data = mysqli_fetch_row($sql)){
+                ?>
+              <tr align="center">
+                <td><?php echo $no; ?></td>
+                <td><?php echo $data[1]; ?></td>
+                <td><?php echo $data[2]; ?></td>
+                <td><?php echo $data[3]." ".$data[4] ?></td>
+                <td>
+                	<center>
+                        <a href="?page=materi&id=<?php echo $data[0]; ?>">
+                        	<div class="glyphicon glyphicon-download-alt"></div>
+                        </a>
+                    </center>
+                </td>
+              </tr>
+              <?php $no++; } ?>
+            </tbody>
+          </table>
+          
+	</div>
+</div>
+
+<!-- --------------------------------------------------- UPLOAD --------------------------------------------------- -->
+<div class="modal fade" id="myModal" role="dialog">
+    	<div class="modal-dialog modal-sm">
+
+      		<div class="modal-content">
+        		<div class="modal-header">
+          			<button type="button" class="close" data-dismiss="modal">&times;</button>
+          			<h4 class="modal-title">Upload File</h4>
+        		</div>
+                <form action="?page=matkul" method="post">
+        		<div class="modal-body">
+                    	<fieldset>
+                        	<div class="form-group">
+                            	<textarea class="form-control" name="desc" placeholder="Desckripsi File"></textarea>
+                            </div>
+                           <div class="form-group">
+                            	<input name="fupload" type="file">
+                            </div>
+                       </fieldset>
+        		</div>
+        		<div class="modal-footer">
+         			<input type="submit" class="btn btn-default" name="upload" value="Upload">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        		</div>
+                </form>
+      		</div>
+      
+    	</div>
+	</div>
