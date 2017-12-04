@@ -65,14 +65,14 @@
           			<button type="button" class="close" data-dismiss="modal">&times;</button>
           			<h4 class="modal-title">Upload File</h4>
         		</div>
-                <form action="?page=matkul" method="post">
+                <form enctype="multipart/form-data" action="?page=materi&id=<?php echo $_GET['id'] ?>" method="post">
         		<div class="modal-body">
                     	<fieldset>
                         	<div class="form-group">
                             	<textarea class="form-control" name="desc" placeholder="Desckripsi File"></textarea>
                             </div>
                            <div class="form-group">
-                            	<input name="fupload" type="file">
+                            	<input name="file_upload" type="file">
                             </div>
                        </fieldset>
         		</div>

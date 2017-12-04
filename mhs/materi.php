@@ -1,11 +1,7 @@
 <?php
 	$cek = cek_login($user);
 	
-	if(isset($_POST['input'])){ input_matkul(); }
-	if(isset($_POST['edit'])){ edit_matkul(); }
-	if(isset($_GET['delete'])){ 
-		delete_data('matkul','kd_matkul', $_GET['id']);
-		}
+	if(isset($_GET['file'])){ download_file(); }
 ?>
 
 <div class="panel-heading">Materi Kuliah 
@@ -43,7 +39,7 @@
                 <td><?php echo $data[3]." ".$data[4] ?></td>
                 <td>
                 	<center>
-                        <a href="?page=materi&id=<?php echo $data[0]; ?>">
+                        <a href="?page=materi&file=<?php echo $data[1]; ?>">
                         	<div class="glyphicon glyphicon-download-alt"></div>
                         </a>
                     </center>

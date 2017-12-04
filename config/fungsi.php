@@ -61,9 +61,9 @@
 	
 	function upload_file(){
 		include "koneksi.php";
-		$lokasi_file = $_FILES['fupload']['tmp_name'];
-		$nama_file   = $_FILES['fupload']['name'];
-		
+		$lokasi_file = $_FILES['file_upload']['tmp_name'];
+		$nama_file   = $_FILES['file_upload']['name'];
+
 		$folder = "../asset/files/$nama_file";
 		
 		date_default_timezone_set('Asia/Jakarta');
@@ -71,14 +71,14 @@
 		$tgl_upload = date("Ymd");
 	
 		if (move_uploaded_file($lokasi_file,"$folder")){
-		  echo "Nama File : <b>$nama_file</b> sukses di upload";
-		
-		  $query = "INSERT INTO upload (nm_file, deskripsi, tgl_upload, jam_upload, id_upload, kd_kelas, jenis)
-					VALUES('$nama_file', '$_POST[desc]', '$tgl_upload' '$jam', '$_SESSION[id]', '$_GET[id]', 'materi')";
-					
-		  mysqli_query($link, $query);
+		 
+		 $query = "insert into tb_file values ('', '$nama_file', '$_POST[desc]', '$tgl_upload', '$jam', '$_SESSION[id]', '$_GET[id]', 'materi')";
+		  $sql = $link->query($query);
+		  	if($sql){
+				alert_box("File Berhasil di Upload");
+			}
 		}else{
-		  echo "File gagal di upload";
+		  alert_box( "File gagal di upload");
 		}	
 	}
 	
@@ -91,13 +91,7 @@
 			  <p> Anda tidak diperbolehkan mendownload file ini.</p>";
 		  exit;
 		}else {
-		  header("Content-Type: octet/stream");
-		  header("Content-Disposition: attachment; 
-		  filename=\"".$_GET['file']."\"");
-		  $fp = fopen($folder.$_GET['file'], "r");
-		  $data = fread($fp, filesize($folder.$_GET['file']));
-		  fclose($fp);
-		  print $data;
+		  echo "berhasil";
 		}
 	}
 	
